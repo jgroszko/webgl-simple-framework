@@ -1,3 +1,7 @@
+/********/
+/* Cube */
+/********/
+
 var Cube = function(gl, shaderProgram) {
   this.gl = gl;
   this.shaderProgram = shaderProgram;
