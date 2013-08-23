@@ -48,7 +48,6 @@ Application.prototype.draw = function() {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
     
     this.camera.apply(this.shaderProgram, this.cubeMMatrix);
-    this.shaderProgram.apply(this.shaderProgram, this.cubeMMatrix);
     this.cube.draw();
 };
 
