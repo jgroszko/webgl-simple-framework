@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Simple Framework</title>
-</head>
-<body>
-  <script type="x-shader/x-fragment" id="fragment_shader">
+  <head>
+    <title>Simple Framework</title>
+  </head>
+  <body>
+    <script type="x-shader/x-fragment" id="fragment_shader">
       precision highp float;
       
       uniform vec4 uColor;
@@ -12,11 +12,11 @@
       varying vec3 vLightWeighting;
       
       void main(void) {
-        gl_FragColor = vec4(uColor.rgb * vLightWeighting, uColor.a);
+          gl_FragColor = vec4(uColor.rgb * vLightWeighting, uColor.a);
       }
-  </script>
+    </script>
 
-      <script type="x-shader/x-vertex" id="vertex_shader">
+    <script type="x-shader/x-vertex" id="vertex_shader">
       attribute vec3 aNormal;
       attribute vec3 aVertexPosition;
       
@@ -31,21 +31,21 @@
       varying vec3 vLightWeighting;
       
       void main(void) {
-        gl_Position = uPVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
+          gl_Position = uPVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
 
-        vec4 transformedNormal = uNMatrix * vec4(aNormal, 1.0);
-        float directionalLightWeighting = max(dot(transformedNormal.xyz, uLightingDirection), 0.0);
-        vLightWeighting = uAmbientColor + (uDirectionalColor * directionalLightWeighting);
+          vec4 transformedNormal = uNMatrix * vec4(aNormal, 1.0);
+          float directionalLightWeighting = max(dot(transformedNormal.xyz, uLightingDirection), 0.0);
+          vLightWeighting = uAmbientColor + (uDirectionalColor * directionalLightWeighting);
       }
     </script>
 
-  
-  <canvas width="640" height="480"></canvas>
-  
-  <script src="//glmatrix.googlecode.com/files/glMatrix-0.9.5.min.js"></script>
-  <script src="Cube.js"></script>
-  <script src="ShaderProgram.js"></script>
-  <script src="Camera.js"></script>
-  <script src="Application.js"></script>
-</body>
+    
+    <canvas width="640" height="480"></canvas>
+    
+    <script src="//glmatrix.googlecode.com/files/glMatrix-0.9.5.min.js"></script>
+    <script src="Cube.js"></script>
+    <script src="ShaderProgram.js"></script>
+    <script src="Camera.js"></script>
+    <script src="Application.js"></script>
+  </body>
 </html>
