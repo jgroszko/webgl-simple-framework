@@ -13,6 +13,35 @@ window.requestAnimFrame = (function(){
         };
 })();
 
+/*********************/
+/* MDN Bind Polyfill */
+/*********************/
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function (oThis) {
+    if (typeof this !== "function") {
+      // closest thing possible to the ECMAScript 5 internal IsCallable function
+      throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+    }
+
+    var aArgs = Array.prototype.slice.call(arguments, 1), 
+        fToBind = this, 
+        fNOP = function () {},
+        fBound = function () {
+          return fToBind.apply(this instanceof fNOP && oThis
+                                 ? this
+                                 : oThis,
+                               aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+
+    fNOP.prototype = this.prototype;
+    fBound.prototype = new fNOP();
+
+    return fBound;
+  };
+}
+
 /***************/
 /* Application */
 /***************/
@@ -39,10 +68,7 @@ var Application = function(){
 };
 
 Application.prototype.draw = function() {
-    var _this = this;
-    window.requestAnimFrame(function() {
-	_this.draw();
-    });
+    window.requestAnimFrame(this.draw.bind(this));
     
     this.gl.viewport(0, 0, this.viewportWidth, this.viewportHeight);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
